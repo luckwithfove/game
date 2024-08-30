@@ -1,0 +1,39 @@
+body {
+    background-color: red;
+    color: gold;
+    font-family: 'Cursive', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+}
+
+.bottle-container {
+    margin-bottom: 20px;
+}
+
+#bottle {
+    width: 100px;
+    transition: transform 2s;
+}
+
+#topic-display {
+    font-size: 24px;
+    margin: 20px;
+}
+
+.coin-container {
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#coin {
+    width: 50px;
+    transition: transform 0.6s;
+}
+
