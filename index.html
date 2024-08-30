@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="bottle-container">
-            <img src="bottle.png" id="bottle" alt="Spinning Bottle" onclick="spinBottle()">
+    <div class="container">
+        <h1>Bottle Game</h1>
+        <div class="game-area">
+            <img src="bottle.png" alt="Spinning Bottle" id="bottle">
         </div>
-        <div id="topic-display"></div>
-        <div class="coin-container" onclick="tossCoin()">
-            <img src="coin.png" id="coin" alt="Toss Coin">
+        <div class="controls">
+            <button id="spinButton">Spin the Bottle</button>
+            <div id="topicDisplay"></div>
+            <div class="coin-area">
+                <img src="coin-heads.png" alt="Toss Coin" id="coin" class="coin">
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
