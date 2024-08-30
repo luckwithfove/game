@@ -1,44 +1,53 @@
-let topics = ["Favorite", "How often", "Relationship", "Hobbies", "Work", "Travel"];
-let canTossCoin = true;
-let tossCooldown = 0;
-const coinCooldownLimit = 3;
+document.addEventListener('DOMContentLoaded', function () {
+    const bottle = document.getElementById('bottle');
+    const spinButton = document.getElementById('spinButton');
+    const topicDisplay = document.getElementById('topicDisplay');
+    const coin = document.getElementById('coin');
 
-function spinBottle() {
-    if (!canTossCoin && tossCooldown < coinCooldownLimit) {
-        tossCooldown++;
-        if (tossCooldown === coinCooldownLimit) {
+    const topics = ['Favorite', 'How Often', 'Relationship', 'Embarrassing', 'Dreams', 'Fun Facts'];
+    let canTossCoin = true;
+    let roundsSinceLastToss = 0;
+
+    spinButton.addEventListener('click', spinBottle);
+    coin.addEventListener('click', tossCoin);
+
+    function spinBottle() {
+        const randomAngle = Math.floor(Math.random() * 360) + 360; // Ensures at least one full spin
+        bottle.style.transform = `rotate(${randomAngle}deg)`;
+        
+        const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+        setTimeout(() => {
+            topicDisplay.innerText = `Topic: ${randomTopic}`;
+        }, 3000); // Delay to match bottle spin duration
+
+        roundsSinceLastToss++;
+
+        if (roundsSinceLastToss >= 3) {
             canTossCoin = true;
         }
     }
 
-    const bottle = document.getElementById("bottle");
-    const rotationDegrees = Math.floor(Math.random() * 3600) + 360; // Random rotation between 360 and 3960 degrees
-    bottle.style.transform = `rotate(${rotationDegrees}deg)`;
+    function tossCoin() {
+        if (!canTossCoin) {
+            alert('You cannot toss the coin again until 3 rounds have passed.');
+            return;
+        }
 
-    setTimeout(() => {
-        const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-        document.getElementById("topic-display").innerText = `Topic: ${randomTopic}`;
-    }, 2000);
-}
-
-function tossCoin() {
-    if (canTossCoin) {
-        const coin = document.getElementById("coin");
-        const result = Math.random() < 0.5 ? "win" : "loss";
-        coin.style.transform = "rotateY(1800deg)";
+        const isHeads = Math.random() < 0.5;
+        coin.src = isHeads ? 'coin-heads.png' : 'coin-tails.png';
+        coin.classList.add('toss');
 
         setTimeout(() => {
-            alert(`Coin result: ${result.toUpperCase()}`);
-            coin.style.transform = "";
-            if (result === "win") {
-                const newTopic = topics[Math.floor(Math.random() * topics.length)];
-                document.getElementById("topic-display").innerText = `Topic: ${newTopic}`;
-            }
-            canTossCoin = false;
-            tossCooldown = 0;
-        }, 600);
-    } else {
-        alert("You need to wait for 3 spins before tossing the coin again!");
+            coin.classList.remove('toss');
+        }, 1000); // Match this to the coin's CSS transition duration
+
+        canTossCoin = false;
+        roundsSinceLastToss = 0;
+        
+        const newTopic = topics[Math.floor(Math.random() * topics.length)];
+        setTimeout(() => {
+            topicDisplay.innerText = `New Topic: ${newTopic}`;
+        }, 1000); // Show new topic after coin toss animation
     }
-}
+});
 
